@@ -1,0 +1,24 @@
+int cislo = 0;
+char test = 0;
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(4, INPUT);
+  digitalWrite(4, HIGH);
+}
+
+void loop()
+{
+  if ( digitalRead(4) == LOW && test == 0)
+  {
+    test = 1;
+    cislo++;
+    Serial.print(cislo);
+  }
+
+  if ( digitalRead(4) == HIGH && test == 1)
+  {
+    test = 0;
+  }
+}

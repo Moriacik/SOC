@@ -1,0 +1,61 @@
+#define set0(R,B) R&=~(1<<B) // nastavovanie log0
+#define set1(R,B) R|=(1<<B) // nastavovanie log1
+
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(13, 12, 11, 10, 9, 8);
+
+int cislo = 0;
+
+void setup()
+{
+  lcd.begin(16, 2);
+  set0(DDRC, 1); // vstup a pullup pre tlacidlo
+  set1(PORTC, 1);
+  set0(DDRC, 0);
+  set1(PORTC, 0);
+  set1(PCICR, PCIE1); // zachytavanie ANY CHANGE
+  set1(PCMSK1, PCINT8); // povolenie ext. prerusenia na pine PCINT8
+  set1(PCMSK1, PCINT9);
+  set1(SREG, 7); // globalne povolenie preruseni
+
+}
+
+void loop()
+{
+}
+
+int predoslaM = 0; // predosly stav tlacidla
+int predoslaP = 0;
+
+ISR(PCINT1_vect)
+{
+  int novaM = digitalRead(A0); // novy stav tlacidla
+
+  int novaP;
+  if ( (PINC & (1 << 1)) == 0 )
+    novaP = 0;
+  else
+    novaP = 1;
+
+
+  if ( novaM != predoslaM ) // ak doslo k zmene na tlacidle...
+  {
+    if ((PINC & (1 << 1)) == 0) // ak bola zmena DOBEZNA
+    {
+      cislo++;
+      lcd.home();
+      lcd.print(cislo);
+    }
+    predoslaM = novaM; // aktualizuj stary stav tlacidla
+  }
+
+
+  if ( novaP != predoslaP )
+  {
+    cislo--;
+    lcd.home();
+    lcd.print(cislo);
+    predoslaP = novaP;
+  }
+}

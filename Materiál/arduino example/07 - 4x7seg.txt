@@ -1,0 +1,112 @@
+void segment(uint8_t s)
+{
+  if (s == 1)
+  {
+    digitalWrite(9, LOW);
+    digitalWrite(10, HIGH);
+    digitalWrite(11, HIGH);
+    digitalWrite(12, HIGH);
+  }
+  else if (s == 2)
+  {
+    digitalWrite(9, HIGH);
+    digitalWrite(10, LOW);
+    digitalWrite(11, HIGH);
+    digitalWrite(12, HIGH);
+  }
+  else if (s == 3)
+  {
+    digitalWrite(9, HIGH);
+    digitalWrite(10, HIGH);
+    digitalWrite(11, LOW);
+    digitalWrite(12, HIGH);
+  }
+  else if (s == 4)
+  {
+    digitalWrite(9, HIGH);
+    digitalWrite(10, HIGH);
+    digitalWrite(11, HIGH);
+    digitalWrite(12, LOW);
+  }
+  else
+  {
+    digitalWrite(9, HIGH);
+    digitalWrite(10, HIGH);
+    digitalWrite(11, HIGH);
+    digitalWrite(12, HIGH);
+  }
+}
+
+void dva()
+{
+  digitalWrite(2, HIGH);
+  digitalWrite(3, HIGH);
+  digitalWrite(4, LOW);
+  digitalWrite(5, HIGH);
+  digitalWrite(6, HIGH);
+  digitalWrite(7, LOW);
+  digitalWrite(8, HIGH);
+}
+
+void jeden()
+{
+  digitalWrite(2, LOW);
+  digitalWrite(3, HIGH);
+  digitalWrite(4, HIGH);
+  digitalWrite(5, LOW);
+  digitalWrite(6, LOW);
+  digitalWrite(7, LOW);
+  digitalWrite(8, LOW);
+}
+
+void nula()
+{
+  digitalWrite(2, HIGH);
+  digitalWrite(3, HIGH);
+  digitalWrite(4, HIGH);
+  digitalWrite(5, HIGH);
+  digitalWrite(6, HIGH);
+  digitalWrite(7, HIGH);
+  digitalWrite(8, LOW);
+}
+
+void nic()
+{
+  for (uint8_t i = 2; i < 9; i++)
+    digitalWrite(i, LOW);
+}
+
+char znak = '-';
+
+void setup() // inicializacna funkcia
+{
+  Serial.begin(9600);
+  for (uint8_t i = 2 ; i < 13 ; i++)
+    pinMode(i, OUTPUT);
+
+}
+
+void loop() // zacyklena funkcia
+{
+  if ( Serial.available() )
+    znak = Serial.read();
+
+  if (znak == '0')
+    nula();
+  else if (znak == '1')
+    jeden();
+  else if (znak == '2')
+    dva();
+  else
+    nic();
+
+  if ( znak == 'a')
+    segment(1);
+  else  if ( znak == 'b')
+    segment(2);
+  else  if ( znak == 'c')
+    segment(3);
+  else  if ( znak == 'd')
+    segment(4);
+}
+

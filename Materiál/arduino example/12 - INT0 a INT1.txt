@@ -1,0 +1,36 @@
+#define set0(R,B) R&=~(1<<B)
+#define set1(R,B) R|=(1<<B)
+#define test(R,B) (R&(1<<B))
+
+void setup()
+{
+  set1(DDRB, 0); // LED vystup
+  set0(DDRD, 2); // TLACIDLO1 vstup
+  set1(PORTD, 2); // PULLUP ODPOR na tlacidle1
+  set0(DDRD, 3); // TLACIDLO2 vstup
+  set1(PORTD, 3); // PULLUP ODPOR na tlacidle2
+  
+  set1(SREG,7); // globalne povolenie prerusenia
+  set1(EIMSK,INT0); // zapnutie INT0
+  set1(EIMSK,INT1); // zapnutie INT1
+
+  set1(EICRA,ISC01); // dobezna hrana pre INT0
+  set0(EICRA,ISC00);
+  set1(EICRA,ISC11); // dobezna hrana pre INT1
+  set0(EICRA,ISC10);
+}
+
+ISR(INT0_vect) // funkcia pre INT0
+{
+  set1(PORTB,0); // zasvietenie LEDky
+}
+
+ISR(INT1_vect) // funkcia pre INT1
+{
+  set0(PORTB,0); // zhasnutie LEDky
+}
+
+
+void loop()
+{
+}

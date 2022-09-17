@@ -1,0 +1,30 @@
+bool spustene = false;
+
+void spustanie()
+{
+  spustene = true;
+}
+
+void zastavenie()
+{
+  spustene = false;
+}
+
+void setup() // inicializacna funkcia
+{
+  Serial.begin(9600);
+  attachInterrupt(digitalPinToInterrupt(3), spustanie, FALLING);
+  attachInterrupt(digitalPinToInterrupt(2), zastavenie, FALLING);
+  pinMode(2,INPUT_PULLUP);
+  pinMode(3,INPUT_PULLUP);
+}
+
+void loop() // zacyklena funkcia
+{
+  if(spustene == true)
+  {
+    Serial.println( (rand()%15)+2 );
+    delay(100);
+  }
+}
+

@@ -1,0 +1,22 @@
+int cislo = 0; // globalna premenna existujuca vsade
+
+void setup() // inicializacna funkcia
+{
+   Serial.begin(9600); // inicializacia Serialu
+   pinMode(3,INPUT); // pin s tlacidlom je VSTUPNY
+   digitalWrite(3,HIGH); // zapnuie pull-up odporu
+   // nastavenie vonkajsieho prerusenia (PIN=3 , FUNKVIA , DOBEZNA HRANA)
+   attachInterrupt(digitalPinToInterrupt(3), resetCislo, FALLING);
+}
+
+void loop() // zacyklena funkcia
+{
+  cislo++; // zvysenie premennej o 1
+  Serial.print(cislo); // vypis premennej
+  delay(1000); // pockanie 1 sekundu
+}
+
+void resetCislo() // funkcia volana prerusenim
+{
+  cislo = 0; // resetovanie premennej
+}

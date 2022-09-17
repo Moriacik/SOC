@@ -1,0 +1,138 @@
+void symbol(int c)
+{
+  if (c == 0)
+  {
+    digitalWrite(13, HIGH);
+    digitalWrite(12, HIGH);
+    digitalWrite(11, HIGH);
+    digitalWrite(10, HIGH);
+    digitalWrite(9, HIGH);
+    digitalWrite(8, HIGH);
+    digitalWrite(7, LOW);
+  }
+  else if (c == 1)
+  {
+    digitalWrite(13, LOW);
+    digitalWrite(12, HIGH);
+    digitalWrite(11, HIGH);
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
+  }
+  else if (c == 2)
+  {
+    digitalWrite(13, HIGH);
+    digitalWrite(12, HIGH);
+    digitalWrite(11, LOW);
+    digitalWrite(10, HIGH);
+    digitalWrite(9, HIGH);
+    digitalWrite(8, LOW);
+    digitalWrite(7, HIGH);
+  }
+  else if (c == 3)
+  {
+    digitalWrite(13, HIGH);
+    digitalWrite(12, HIGH);
+    digitalWrite(11, HIGH);
+    digitalWrite(10, HIGH);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, HIGH);
+  }
+  else if (c == 4)
+  {
+    digitalWrite(13, LOW);
+    digitalWrite(12, HIGH);
+    digitalWrite(11, HIGH);
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, HIGH);
+    digitalWrite(7, HIGH);
+  }
+  else if (c == 5)
+  {
+    digitalWrite(13, HIGH);
+    digitalWrite(12, LOW);
+    digitalWrite(11, HIGH);
+    digitalWrite(10, HIGH);
+    digitalWrite(9, LOW);
+    digitalWrite(8, HIGH);
+    digitalWrite(7, HIGH);
+  }
+  else if (c == 6)
+  {
+    digitalWrite(13, HIGH);
+    digitalWrite(12, LOW);
+    digitalWrite(11, HIGH);
+    digitalWrite(10, HIGH);
+    digitalWrite(9, HIGH);
+    digitalWrite(8, HIGH);
+    digitalWrite(7, HIGH);
+  }
+  else if (c == 7)
+  {
+    digitalWrite(13, HIGH);
+    digitalWrite(12, HIGH);
+    digitalWrite(11, HIGH);
+    digitalWrite(10, LOW);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
+  }
+  else if (c == 8)
+  {
+    digitalWrite(13, HIGH);
+    digitalWrite(12, HIGH);
+    digitalWrite(11, HIGH);
+    digitalWrite(10, HIGH);
+    digitalWrite(9, HIGH);
+    digitalWrite(8, HIGH);
+    digitalWrite(7, HIGH);
+  }
+  else if (c == 9)
+  {
+    digitalWrite(13, HIGH);
+    digitalWrite(12, HIGH);
+    digitalWrite(11, HIGH);
+    digitalWrite(10, HIGH);
+    digitalWrite(9, LOW);
+    digitalWrite(8, HIGH);
+    digitalWrite(7, HIGH);
+  }
+}
+
+void segment(int s)
+{
+  digitalWrite(6, HIGH);
+  digitalWrite(3, HIGH);
+  digitalWrite(4, HIGH);
+  digitalWrite(5, HIGH);
+  digitalWrite(7 - s, LOW);
+}
+
+int cislo = 0;
+long cas;
+
+void setup()
+{
+  for (int i = 3; i < 14; i++)
+    pinMode(i, OUTPUT);
+  cas = millis();
+}
+
+void loop()
+{
+  if (millis() > cas)
+  {
+    cislo++;
+    cas = millis() +1000;
+  }
+
+  symbol(cislo / 10);
+  segment(1);
+  delay(50);
+  symbol(cislo % 10);
+  segment(2);
+  delay(50);
+}

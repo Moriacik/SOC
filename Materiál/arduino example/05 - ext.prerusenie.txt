@@ -1,0 +1,26 @@
+int cislo;
+int priznak = 0;
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(3,INPUT);
+  digitalWrite(3,HIGH);
+  attachInterrupt(digitalPinToInterrupt(3), stoping, FALLING);
+  priznak = 0;
+}
+
+void loop()
+{
+  if(priznak == 0)
+  {
+    cislo = (rand()%14)+2;
+    Serial.println(cislo);
+    delay(200);
+  }
+}
+
+void stoping()
+{
+  priznak = 1;
+}

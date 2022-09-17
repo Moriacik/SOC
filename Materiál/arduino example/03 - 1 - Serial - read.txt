@@ -1,0 +1,37 @@
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(8, 7, 6, 5, 4, 3);
+
+void setup()
+{
+  Serial.begin(19200);
+  lcd.begin(16, 2);
+}
+
+char znak;
+
+void loop()
+{
+  if ( Serial.available()  )
+  {
+    znak = Serial.read();
+    lcd.setCursor(0,0);
+    //lcd.clear();
+    if (znak == '1')
+    {
+      lcd.print("1.miesto: Peter");
+    }
+    else if (znak == '2')
+    {
+      lcd.print("2.miesto: Jano ");
+    }
+    else if (znak == '3')
+    {
+      lcd.print("3.miesto: Misko");
+    }
+    else
+    {
+      lcd.print("ZADAJ VOLBU 1-3");
+    }
+  }
+}

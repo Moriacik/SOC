@@ -1,0 +1,52 @@
+#include <LiquidCrystal.h>
+
+LiquidCrystal aa(8, 7, 6, 5, 4, 3);
+
+int cislo;
+int cislo2;
+int vysledok;
+char operacia;
+
+void setup()
+{
+  Serial.begin(19200);
+  aa.begin(16, 2);
+}
+
+void loop()
+{
+  while ( ! Serial.available() )
+  {
+  }
+  cislo = Serial.parseInt();
+  aa.print(cislo);
+
+  while ( ! Serial.available() )
+  {
+  }
+  operacia = Serial.read();
+  aa.print(operacia);
+
+
+  while ( ! Serial.available() )
+  {
+  }
+  cislo2 = Serial.parseInt();
+  aa.print(cislo2);
+  aa.print("=");
+
+  if (operacia == '+')
+  {
+    vysledok = cislo + cislo2;
+    aa.print(vysledok);
+  }
+  else if (operacia == '-')
+  {
+    vysledok = cislo - cislo2;
+    aa.print(vysledok);
+  }
+  else
+  {
+    aa.print("ERROR");
+  }
+}

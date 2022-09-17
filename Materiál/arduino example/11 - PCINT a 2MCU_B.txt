@@ -1,0 +1,57 @@
+#define set0(R,B) R&=~(1<<B)
+#define set1(R,B) R|=(1<<B)
+#define test(R,B) (R&(1<<B))
+
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(8, 9, 10, 11, 12, 13);
+
+int stary1;
+int stary2;
+
+void setup()
+{
+  lcd.begin(16, 2);
+  set0(DDRD, 0);
+  set0(DDRD, 1);
+  set1(PCICR, PCIE2);
+  set1(PCMSK2, PCINT16);
+  set1(PCMSK2, PCINT17);
+  set1(SREG, 7);
+  stary1 = test(PIND, 0); //0or1 (1<<0)
+  stary2 = test(PIND, 1); //0or2 (1<<1)
+}
+
+void loop()
+{
+}
+
+ISR(PCINT2_vect)
+{
+  if ( test(PIND, 0) != stary1)
+  {
+    lcd.setCursor(0, 0);
+    
+    if (test(PIND, 0) == 0)
+      lcd.print("OFF");
+    else
+      lcd.print("ON ");
+      
+    stary1 = test(PIND, 0);
+  }
+  
+  else if ( test(PIND, 1) != stary2)
+  {
+    lcd.setCursor(0, 1);
+    
+    if (test(PIND, 1) == 0)
+      lcd.print("OFF");
+    else
+      lcd.print("ON ");
+      
+    stary2 = test(PIND, 1);
+  }
+}
+
+
+
