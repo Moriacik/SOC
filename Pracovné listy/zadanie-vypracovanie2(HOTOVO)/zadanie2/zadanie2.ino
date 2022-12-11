@@ -5,7 +5,9 @@ char test = 0;
 
 void setup()
 {
-  lcd.begin(16, 2);
+  lcd.begin(16,2);
+  pinMode(2,INPUT);
+  digitalWrite(2,HIGH);
 }
 
 void loop()
