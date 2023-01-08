@@ -19,7 +19,7 @@ if(digitalRead(2) == LOW && test == 0)
           { 
           lcd.clear();
           lcd.setCursor(0,0); 
-          lcd.print(" Mode 1 ");   
+          lcd.print(" Mod 1 ");   
           pocet ++;
           }
 
@@ -27,7 +27,7 @@ if(digitalRead(2) == LOW && test == 0)
           {
           lcd.clear();
           lcd.setCursor(0,0); 
-          lcd.print(" Mode 2 ");
+          lcd.print(" Mod 2 ");
           pocet ++;
           }
 
@@ -35,7 +35,7 @@ if(digitalRead(2) == LOW && test == 0)
           {
           lcd.clear();
           lcd.setCursor(0,0); 
-          lcd.print(" Mode 3 ");
+          lcd.print(" Mod 3 ");
           pocet = 0;
           }
      test = 1;
